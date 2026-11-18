@@ -1,0 +1,98 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "StreetEye API — Foundation",
+    "version": "0.1.0",
+    "description": "Bộ khung Express. Hiện chỉ có health check. API reports, hazards, verifications, landmarks và authentication sẽ được bổ sung ở bước nghiệp vụ; chưa phải đặc tả BE-04 đầy đủ."
+  },
+  "servers": [{ "url": "/", "description": "Server đang phục vụ tài liệu này" }],
+  "tags": [{ "name": "Health", "description": "Kiểm tra server và kết nối database" }],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "operationId": "getLiveness",
+        "summary": "Server có phản hồi HTTP không?",
+        "description": "Không truy vấn database. HTTP 200 không có nghĩa schema hoặc database đã sẵn sàng.",
+        "responses": {
+          "200": {
+            "description": "Server đang chạy",
+            "headers": { "X-Request-Id": { "$ref": "#/components/headers/RequestId" } },
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Liveness" } } }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "tags": ["Health"],
+        "operationId": "getReadiness",
+        "summary": "Database có nhận SELECT 1 không?",
+        "description": "Chỉ kiểm tra kết nối PostgreSQL, chưa kiểm tra migration/schema nghiệp vụ. Chưa cấu hình hoặc lỗi kết nối trả 503.",
+        "responses": {
+          "200": {
+            "description": "SELECT 1 thành công",
+            "headers": { "X-Request-Id": { "$ref": "#/components/headers/RequestId" } },
+            "content": { "application/json": {
+              "schema": { "$ref": "#/components/schemas/Readiness" },
+              "example": { "status": "ready", "checks": { "database": "up" } }
+            } }
+          },
+          "503": {
+            "description": "Chưa cấu hình database hoặc kết nối thất bại",
+            "headers": { "X-Request-Id": { "$ref": "#/components/headers/RequestId" } },
+            "content": { "application/json": {
+              "schema": { "$ref": "#/components/schemas/Readiness" },
+              "examples": {
+                "missing": { "value": { "status": "not_ready", "checks": { "database": "not_configured" } } },
+                "unavailable": { "value": { "status": "not_ready", "checks": { "database": "down" } } }
+              }
+            } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "headers": {
+      "RequestId": { "description": "ID do server tạo để tra cứu lỗi", "schema": { "type": "string", "format": "uuid" } }
+    },
+    "schemas": {
+      "Liveness": {
+        "type": "object",
+        "required": ["status", "service"],
+        "properties": {
+          "status": { "type": "string", "enum": ["ok"] },
+          "service": { "type": "string", "enum": ["streeteye-backend"] }
+        }
+      },
+      "Readiness": {
+        "type": "object",
+        "required": ["status", "checks"],
+        "properties": {
+          "status": { "type": "string", "enum": ["ready", "not_ready"] },
+          "checks": {
+            "type": "object",
+            "required": ["database"],
+            "properties": { "database": { "type": "string", "enum": ["up", "down", "not_configured"] } }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message", "requestId"],
+            "properties": {
+              "code": { "type": "string", "example": "NOT_FOUND" },
+              "message": { "type": "string", "example": "Endpoint not found." },
+              "requestId": { "type": "string", "format": "uuid" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

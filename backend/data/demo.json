@@ -1,0 +1,169 @@
+{
+  "mode": "demo",
+  "regions": [
+    {
+      "key": "dhqg",
+      "source_ref": "StreetEye synthetic demo v1 / dhqg",
+      "surveyed_at": null,
+      "boundary": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.797,
+              10.877
+            ],
+            [
+              106.803,
+              10.877
+            ],
+            [
+              106.803,
+              10.883
+            ],
+            [
+              106.797,
+              10.883
+            ],
+            [
+              106.797,
+              10.877
+            ]
+          ]
+        ]
+      },
+      "route": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.798,
+            10.88
+          ],
+          [
+            106.8,
+            10.88
+          ],
+          [
+            106.8,
+            10.882
+          ]
+        ]
+      },
+      "hazards": [
+        {
+          "key": "h1",
+          "position": [
+            106.799,
+            10.88
+          ],
+          "type": "pothole",
+          "severity": "low"
+        },
+        {
+          "key": "h2",
+          "position": [
+            106.8,
+            10.881
+          ],
+          "type": "roadwork",
+          "severity": "medium"
+        }
+      ],
+      "landmarks": [
+        {
+          "key": "turn",
+          "position": [
+            106.8,
+            10.88
+          ],
+          "name": "Mốc minh họa dhqg",
+          "instruction": "Rẽ trái tại mốc minh họa",
+          "approach": 90,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "key": "q10",
+      "source_ref": "StreetEye synthetic demo v1 / q10",
+      "surveyed_at": null,
+      "boundary": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              106.657,
+              10.767
+            ],
+            [
+              106.663,
+              10.767
+            ],
+            [
+              106.663,
+              10.773
+            ],
+            [
+              106.657,
+              10.773
+            ],
+            [
+              106.657,
+              10.767
+            ]
+          ]
+        ]
+      },
+      "route": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            106.658,
+            10.77
+          ],
+          [
+            106.66,
+            10.77
+          ],
+          [
+            106.66,
+            10.772
+          ]
+        ]
+      },
+      "hazards": [
+        {
+          "key": "h1",
+          "position": [
+            106.659,
+            10.77
+          ],
+          "type": "pothole",
+          "severity": "low"
+        },
+        {
+          "key": "h2",
+          "position": [
+            106.66,
+            10.771
+          ],
+          "type": "roadwork",
+          "severity": "medium"
+        }
+      ],
+      "landmarks": [
+        {
+          "key": "turn",
+          "position": [
+            106.66,
+            10.77
+          ],
+          "name": "Mốc minh họa q10",
+          "instruction": "Rẽ trái tại mốc minh họa",
+          "approach": 90,
+          "exit": 0
+        }
+      ]
+    }
+  ]
+}

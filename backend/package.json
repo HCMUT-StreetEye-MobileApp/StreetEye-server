@@ -1,0 +1,57 @@
+{
+  "name": "streeteye-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "StreetEye backend foundation — Express, TypeScript and PostgreSQL",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "offline:smoke": "npm run build && node scripts/contribution-smoke.mjs",
+    "mapillary": "node --import tsx src/db/mapillary-cli.ts",
+    "dev": "node --watch --import tsx src/server.ts",
+    "mock": "node --import tsx src/mock/server.ts",
+    "mock:start": "node dist/mock/server.js",
+    "openapi:export": "node --import tsx src/contracts/export.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "db:seed": "node --import tsx src/db/seed.ts",
+    "db:check": "node --import tsx src/db/cli.ts check",
+    "db:status": "node --import tsx src/db/cli.ts status",
+    "db:dry-run": "node --import tsx src/db/cli.ts dry-run",
+    "db:migrate": "node --import tsx src/db/cli.ts migrate",
+    "db:verify": "node --import tsx src/db/cli.ts verify",
+    "db:ready": "node --import tsx src/db/cli.ts ready",
+    "db:runtime": "node --import tsx src/db/runtime.ts",
+    "auth:smoke": "node --import tsx src/db/auth-smoke.ts",
+    "auth:live": "node --import tsx src/db/auth-live-smoke.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "cors": "2.8.6",
+    "dotenv": "17.4.2",
+    "express": "5.3.0",
+    "helmet": "8.3.0",
+    "jose": "6.2.17",
+    "pg": "8.23.1",
+    "sharp": "0.35.5",
+    "swagger-ui-express": "5.0.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "12.1.0",
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.6",
+    "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
+    "@types/supertest": "6.0.3",
+    "@types/swagger-ui-express": "4.1.8",
+    "supertest": "7.3.2",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}
